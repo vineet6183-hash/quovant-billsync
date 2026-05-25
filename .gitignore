@@ -1,0 +1,29 @@
+# PyInstaller build artifacts
+build/
+dist/
+*.spec
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+.env
+
+# Windows batch / desktop app files
+*.bat
+*.exe
+
+# Claude internal config
+.claude/
+
+# Local config
+quovant_config.json
+
+# Invoice files (never commit client data)
+Invoices_Incoming/
+Invoices_Processed/
+Output_Excel/
+*.pdf
