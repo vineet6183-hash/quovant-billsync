@@ -22,6 +22,9 @@ __pycache__/
 # Local config
 quovant_config.json
 
+# Streamlit secrets (never commit — set via Streamlit Cloud dashboard)
+.streamlit/secrets.toml
+
 # Invoice files (never commit client data)
 Invoices_Incoming/
 Invoices_Processed/

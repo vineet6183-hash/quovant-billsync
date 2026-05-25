@@ -21,6 +21,42 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
+# ── Password gate ─────────────────────────────────────────────────────────────
+def _check_password() -> bool:
+    def _on_submit():
+        correct = st.secrets.get("APP_PASSWORD", "")
+        if st.session_state["_pwd_input"] == correct and correct:
+            st.session_state["_authenticated"] = True
+        else:
+            st.session_state["_authenticated"] = False
+            st.session_state["_pwd_wrong"] = True
+
+    if st.session_state.get("_authenticated"):
+        return True
+
+    st.markdown(
+        "<h2 style='text-align:center; margin-top:15vh'>QUOVANT BillSync</h2>"
+        "<p style='text-align:center; color:grey'>Enter the access password to continue</p>",
+        unsafe_allow_html=True,
+    )
+    col = st.columns([1, 2, 1])[1]
+    with col:
+        st.text_input(
+            "Password",
+            type="password",
+            key="_pwd_input",
+            on_change=_on_submit,
+            placeholder="Enter password…",
+            label_visibility="collapsed",
+        )
+        st.button("Unlock", on_click=_on_submit, use_container_width=True)
+        if st.session_state.get("_pwd_wrong"):
+            st.error("Incorrect password — try again.")
+    return False
+
+if not _check_password():
+    st.stop()
+
 # ── Session state ─────────────────────────────────────────────────────────────
 _defaults = {
     "results": [],
